@@ -22,8 +22,8 @@ const gcpSolution = {
             : `Act as a GCP Vertex AI Agent. Task: ${task}. City: ${context.city}. Context: ${context.meaning || context.text}.`;
 
         // Direct REST API call to bypass SDK credential issues
-        // Using gemini-pro (stable)
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.GEMINI_API_KEY}`;
+        // Using gemini-1.5-flash (widely supported)
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
 
         try {
             const response = await fetch(url, {
