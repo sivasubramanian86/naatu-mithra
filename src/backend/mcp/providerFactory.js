@@ -4,7 +4,15 @@ const osSolution = require('./osSolution');
 require('dotenv').config({ path: '../../../.env' });
 
 const getProvider = (choice) => {
-    const provider = choice || process.env.AI_PROVIDER || 'aws';
+    // Smart default: If AI_PROVIDER is set, use it. 
+    // If not, check if GEMINI_API_KEY is present -> use 'gcp'. 
+    // Otherwise fallback to 'aws'.
+    let defaultProvider = 'aws';
+    if (process.env.GEMINI_API_KEY) {
+        defaultProvider = 'google';
+    }
+
+    const provider = choice || process.env.AI_PROVIDER || defaultProvider;
 
     switch (provider.toLowerCase()) {
         case 'aws':
