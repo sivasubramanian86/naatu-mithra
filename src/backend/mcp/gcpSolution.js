@@ -16,17 +16,43 @@ const gcpSolution = {
             throw new Error("GEMINI_API_KEY is not configured on the server.");
         }
 
-        const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-        // Switched to gemini-pro (stable 1.0) to avoid 404/Auth errors with 1.5 on v1 API
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-
         const promptFn = PROMPTS[task];
-        const prompt = promptFn
+        const promptText = promptFn
             ? promptFn(context)
             : `Act as a GCP Vertex AI Agent. Task: ${task}. City: ${context.city}. Context: ${context.meaning || context.text}.`;
 
-        const result = await model.generateContent(prompt);
-        return result.response.text();
+        // Direct REST API call to bypass SDK credential issues
+        // Using gemini-pro (stable)
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.GEMINI_API_KEY}`;
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{ text: promptText }]
+                    }]
+                })
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Gemini API Error: ${response.status} ${response.statusText} - ${errorText}`);
+            }
+
+            const data = await response.json();
+            if (data.candidates && data.candidates.length > 0 && data.candidates[0].content) {
+                return data.candidates[0].content.parts[0].text;
+            } else {
+                throw new Error("No content generated from Gemini API");
+            }
+        } catch (error) {
+            console.error("GCP Solution REST Error:", error);
+            throw error;
+        }
     },
 
     async getScalingConfig() {
