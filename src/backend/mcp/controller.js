@@ -2,21 +2,41 @@ const { getProvider } = require('./providerFactory');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 require('dotenv').config({ path: '../../../.env' });
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+// Removed top-level genAI init to avoid issues if env var is missing at startup
 
 const controller = {
     async executeTask(task, context, userChoice) {
         console.log(`[MCP] Routing task: ${task} with Choice: ${userChoice || 'Default'}`);
 
-        // Global Safety Layer (Always stays via Gemini for cross-provider consistency)
-        const safetyModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-        const contentToCheck = context.text || context.meaning || context.local_dish || context.dish || 'general content';
-        const safetyPrompt = `Check if this content is offensive or unsafe: "${contentToCheck}". Answer only YES or NO.`;
-        const safetyResult = await safetyModel.generateContent(safetyPrompt);
-        const isOffensive = safetyResult.response.text().trim().includes('YES');
 
-        if (isOffensive) {
-            throw new Error("Safety check failed: Offensive content detected.");
+        // Global Safety Layer (Always stays via Gemini for cross-provider consistency)
+        try {
+            if (!process.env.GEMINI_API_KEY) {
+                console.error("CRITICAL: GEMINI_API_KEY is missing in controller environment");
+                throw new Error("GEMINI_API_KEY missing");
+            }
+
+            console.log("Initializing Safety Check...");
+            // Initialize genAI here to ensure it uses the current env var
+            const localGenAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+            const safetyModel = localGenAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+            const contentToCheck = context.text || context.meaning || context.local_dish || context.dish || 'general content';
+            console.log(`Safety checking content: ${contentToCheck}`);
+
+            const safetyPrompt = `Check if this content is offensive or unsafe: "${contentToCheck}". Answer only YES or NO.`;
+            const safetyResult = await safetyModel.generateContent(safetyPrompt);
+            const isOffensive = safetyResult.response.text().trim().includes('YES');
+
+            if (isOffensive) {
+                throw new Error("Safety check failed: Offensive content detected.");
+            }
+            console.log("Safety check passed.");
+        } catch (error) {
+            console.error("Safety Layer Error:", error);
+            // Decide if we want to block or allow on safety error. For now, let's block to be safe.
+            throw new Error(`Safety Layer Failed: ${error.message}`);
         }
 
         // Select E2E Provider Solution
