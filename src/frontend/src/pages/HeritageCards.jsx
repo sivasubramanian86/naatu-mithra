@@ -25,6 +25,16 @@ const HeritageCards = ({ currentCity }) => {
         { id: 'trz_h1', city: 'trz', title: 'Rockfort', fact: 'The temple is built on an 83m high ancient rock that is older than the Himalayas.', img: '/images/trichy.png' },
         { id: 'ixm_h1', city: 'ixm', title: 'Meenakshi Amman', fact: 'Features 14 gopurams (gateway towers) covered in thousands of colorful stone figures.', img: '/images/madurai.png' },
         { id: 'trv_h1', city: 'trv', title: 'Padmanabhaswamy', fact: 'Often cited as the wealthiest place of worship in the world.', img: '/images/trivandrum.png' },
+        { id: 'srt_h1', city: 'srt', title: 'Dumas Beach', fact: 'A popular urban beach in Surat known for its black sand.', img: '/images/surat.png' },
+        { id: 'nag_h1', city: 'nag', title: 'Deekshabhoomi', fact: 'A sacred monument of Buddhism where Dr. Ambedkar converted.', img: '/images/nagpur.png' },
+        { id: 'vtz_h1', city: 'vtz', title: 'INS Kursura Submarine Museum', fact: 'A real decommissioned submarine turned into a museum on the beach.', img: '/images/vizag.png' },
+        { id: 'pat_h1', city: 'pat', title: 'Golghar', fact: 'A massive granary with a unique beehive-shaped structure.', img: '/images/patna.png' },
+        { id: 'bho_h1', city: 'bho', title: 'Sanchi Stupa', fact: 'One of the oldest stone structures in India, located near Bhopal.', img: '/images/bhopal.png' },
+        { id: 'thn_h1', city: 'thn', title: 'Upvan Lake', fact: 'A serene lake in Thane known for its cultural festivals.', img: '/images/thane.png' },
+        { id: 'luh_h1', city: 'luh', title: 'Clock Tower', fact: 'An iconic landmark in the heart of Ludhiana.', img: '/images/ludhiana.png' },
+        { id: 'agr_h1', city: 'agr', title: 'Taj Mahal', fact: 'The legendary ivory-white marble mausoleum on the banks of Yamuna.', img: '/images/agra.png' },
+        { id: 'nsk_h1', city: 'nsk', title: 'Panchavati', fact: 'A holy site on the banks of Godavari, central to the Ramayana.', img: '/images/nashik.png' },
+        { id: 'fdb_h1', city: 'fdb', title: 'Surajkund', fact: 'An ancient reservoir and site of the famous international craft mela.', img: '/images/faridabad.png' },
     ];
 
     const cards = currentCity === 'all'
