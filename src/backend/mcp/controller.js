@@ -10,7 +10,8 @@ const controller = {
 
         // Global Safety Layer (Always stays via Gemini for cross-provider consistency)
         const safetyModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-        const safetyPrompt = `Check if this content is offensive or unsafe: "${context.text || context.meaning}". Answer only YES or NO.`;
+        const contentToCheck = context.text || context.meaning || context.local_dish || context.dish || 'general content';
+        const safetyPrompt = `Check if this content is offensive or unsafe: "${contentToCheck}". Answer only YES or NO.`;
         const safetyResult = await safetyModel.generateContent(safetyPrompt);
         const isOffensive = safetyResult.response.text().trim().includes('YES');
 
