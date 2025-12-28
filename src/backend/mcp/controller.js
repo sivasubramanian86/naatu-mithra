@@ -20,7 +20,8 @@ const controller = {
             console.log("Initializing Safety Check...");
             // Initialize genAI here to ensure it uses the current env var
             const localGenAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-            const safetyModel = localGenAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            // Switched to gemini-1.5-pro as flash was returning 404
+            const safetyModel = localGenAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
             const contentToCheck = context.text || context.meaning || context.local_dish || context.dish || 'general content';
             console.log(`Safety checking content: ${contentToCheck}`);
