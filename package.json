@@ -1,0 +1,23 @@
+{
+  "name": "naatu-mithra",
+  "version": "1.0.0",
+  "description": "Your Local Friend for Food, Travel, and Culture.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/backend/server.js",
+    "dev:backend": "nodemon src/backend/server.js",
+    "dev:frontend": "npm run dev --prefix src/frontend",
+    "validate": "node scripts/validate_product_md.js",
+    "ingest": "node scripts/ingest_all.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "indian",
+    "culture",
+    "rag",
+    "mcp",
+    "travel"
+  ],
+  "author": "",
+  "license": "MIT"
+}

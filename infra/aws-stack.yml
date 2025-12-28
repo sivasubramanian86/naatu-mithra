@@ -1,0 +1,18 @@
+# --- AWS Bedrock Agent Stack ---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Scale NaatuMithra using Bedrock Agent Core and Strands Agents'
+
+Resources:
+  NaatuMithraAgent:
+    Type: 'AWS::Bedrock::Agent'
+    Properties:
+      AgentName: 'NaatuMithra-Orchestrator'
+      Instruction: 'You are NaatuMithra, a local friend for 10 Indian cities. Use the knowledge base to assist users.'
+      FoundationModel: 'anthropic.claude-3-haiku-20240307-v1:0'
+      # Additional config for knowledge bases and action groups would go here
+
+  AgentAlias:
+    Type: 'AWS::Bedrock::AgentAlias'
+    Properties:
+      AgentId: !Ref NaatuMithraAgent
+      AgentAliasName: 'Prod'

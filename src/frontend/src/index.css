@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+@theme {
+  --font-outfit: "Outfit", sans-serif;
+  --font-playfair: "Playfair Display", serif;
+  --font-nunito: "Nunito", sans-serif;
+
+  /* Naatu Earthy Palette Tokens */
+  --color-terracotta-light: #D37257;
+  --color-terracotta: #C04D29;
+  --color-terracotta-dark: #8E391F;
+
+  --color-mustard-light: #F5C71A;
+  --color-mustard: #E1AD01;
+  --color-mustard-dark: #A68001;
+
+  --color-sage-light: #6B826F;
+  --color-sage: #4A5D4E;
+  --color-sage-dark: #2F3C32;
+
+  --color-earthy-50: #F9F7F5;
+  --color-earthy-100: #F2EDE9;
+  --color-earthy-200: #E5D6CC;
+  --color-earthy-300: #D8BFB0;
+  --color-earthy-400: #CBA893;
+  --color-earthy-500: #BE9177;
+  --color-earthy-600: #AD795F;
+  --color-earthy-700: #8E634E;
+  --color-earthy-800: #6F4D3C;
+  --color-earthy-900: #50372B;
+
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+}
+
+:root {
+  /* Functional Colors for Light Mode */
+  --header-bg: rgba(255, 255, 255, 0.85);
+  --body-bg: #FDFCFB;
+  --sidebar-bg: #F7F5F2;
+  --card-bg: #FFFFFF;
+  --text-primary: #2F3C32;
+  --text-secondary: #6F4D3C;
+  --border-color: #E6E2DE;
+
+  /* Brand Constants - Reverted to Naatu */
+  --primary: #C04D29;
+  /* Terracotta */
+  --secondary: #E1AD01;
+  /* Mustard */
+  --accent: #4A5D4E;
+  /* Sage */
+}
+
+.dark {
+  /* Functional Colors for Dark Mode */
+  --header-bg: rgba(26, 28, 26, 0.85);
+  --body-bg: #1A1C1A;
+  --sidebar-bg: #212421;
+  --card-bg: #2C302C;
+  --text-primary: #E5E7E5;
+  --text-secondary: #B0B0B0;
+  --border-color: #3D423D;
+
+  /* Adjust brand for dark mode visibility */
+  --primary: #D37257;
+  --secondary: #F5C71A;
+}
+
+body {
+  @apply bg-[var(--body-bg)] text-[var(--text-primary)] font-nunito transition-colors duration-300 overflow-hidden h-screen w-screen;
+}
+
+h1,
+h2,
+h3,
+h4,
+.naatu-font {
+  @apply font-playfair;
+}
+
+/* Base Utility Classes */
+@utility btn-naatu {
+  @apply px-6 py-3 rounded-full font-bold transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-md hover:shadow-lg inline-flex items-center justify-center;
+}
+
+.btn-primary {
+  @apply btn-naatu bg-[var(--primary)] text-white hover:brightness-110;
+}
+
+.btn-secondary {
+  @apply btn-naatu bg-[var(--secondary)] text-[var(--earthy-900)] hover:brightness-110;
+}
+
+.glass-card {
+  @apply bg-[var(--card-bg)] backdrop-blur-xl border border-[var(--border-color)] rounded-3xl shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1;
+}
+
+.input-naatu {
+  @apply w-full bg-[var(--card-bg)] border border-[var(--border-color)] p-4 rounded-2xl focus:ring-2 ring-[var(--primary)] outline-none transition-all text-[var(--text-primary)];
+}
+
+.text-gradient-naatu {
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Scroll Management */
+.custom-scroll {
+  @apply overflow-y-auto overflow-x-hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
+
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 10px;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

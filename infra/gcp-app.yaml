@@ -1,0 +1,10 @@
+# --- GCP Vertex AI Agent Config ---
+agent_builder_config:
+  display_name: "NaatuMithra-GCP-Agent"
+  engine_type: "GENERIC"
+  model_id: "gemini-1.5-pro"
+  knowledge_base:
+    corpus_id: "naatu-mithra-kiro-corpus"
+  deployment:
+    platform: "Cloud Run"
+    region: "us-central1"
