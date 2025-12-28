@@ -17,7 +17,8 @@ const gcpSolution = {
         }
 
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+        // Switched to gemini-pro (stable 1.0) to avoid 404/Auth errors with 1.5 on v1 API
+        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
         const promptFn = PROMPTS[task];
         const prompt = promptFn
