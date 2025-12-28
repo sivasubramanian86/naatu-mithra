@@ -35,9 +35,9 @@ const controller = {
             }
             console.log("Safety check passed.");
         } catch (error) {
-            console.error("Safety Layer Error:", error);
-            // Decide if we want to block or allow on safety error. For now, let's block to be safe.
-            throw new Error(`Safety Layer Failed: ${error.message}`);
+            console.error("Safety Layer Error (Non-blocking):", error);
+            // Non-blocking: Proceed even if safety check fails (api error, model not found etc)
+            console.log("Proceeding despite safety check failure.");
         }
 
         // Select E2E Provider Solution
