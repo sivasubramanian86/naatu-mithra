@@ -9,6 +9,7 @@
     "dev:frontend": "npm run dev --prefix src/frontend",
     "validate": "node scripts/validate_product_md.js",
     "ingest": "node scripts/ingest_all.js",
+    "build": "npm install --prefix src/frontend && npm run build --prefix src/frontend",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
