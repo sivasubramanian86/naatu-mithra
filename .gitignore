@@ -1,5 +1,9 @@
 # Secrets
 .env
+
+# Internal State & Artifacts
+.gemini/
+PROJECT_DEEPDIVE.md
 .env.local
 *.log
 

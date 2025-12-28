@@ -1,4 +1,5 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+const { PROMPTS } = require("../lib/aiPrompts");
 require('dotenv').config({ path: '../../../.env' });
 
 /**
@@ -11,11 +12,17 @@ const gcpSolution = {
     async executeTask(task, context) {
         console.log(`[GCP Solution] Processing task: ${task}`);
 
+        if (!process.env.GEMINI_API_KEY) {
+            throw new Error("GEMINI_API_KEY is not configured on the server.");
+        }
+
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
-        const prompt = `Act as a GCP Vertex AI Agent. Task: ${task}. City: ${context.city}. 
-    Context: ${context.meaning || context.text}. Provide a culturally rich response.`;
+        const promptFn = PROMPTS[task];
+        const prompt = promptFn
+            ? promptFn(context)
+            : `Act as a GCP Vertex AI Agent. Task: ${task}. City: ${context.city}. Context: ${context.meaning || context.text}.`;
 
         const result = await model.generateContent(prompt);
         return result.response.text();

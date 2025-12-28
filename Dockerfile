@@ -1,4 +1,4 @@
-# --- NaatuMithra Backend Dockerfile ---
+# --- NaatuMithra Root Dockerfile for Cloud Run ---
 
 # Base image
 FROM node:18-alpine
@@ -18,11 +18,9 @@ RUN cd src/backend && npm install
 COPY . .
 
 # Set Environment defaults
-ENV PORT=3001
-ENV AI_PROVIDER=aws
-
-# Expose port
-EXPOSE 3001
+# Note: PORT is provided by Cloud Run, AI_PROVIDER can be overridden
+ENV AI_PROVIDER=google
 
 # Start the server
+# The root package.json has "start": "node src/backend/server.js"
 CMD ["npm", "start"]

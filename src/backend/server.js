@@ -25,6 +25,7 @@ app.post('/api/predict-travel', travelHandler);
 app.post('/api/food-mood', foodMoodHandler);
 app.post('/api/mindmap', mindmapHandler);
 app.get('/api/heritage/:city', heritageHandler);
+app.post('/api/heritage/:city', heritageHandler);
 
 // Health Check
 app.get('/health', (req, res) => {

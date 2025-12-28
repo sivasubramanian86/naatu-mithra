@@ -1,0 +1,37 @@
+# --- NaatuMithra Frontend Dockerfile for Cloud Run ---
+
+# Stage 1: Build
+FROM node:18-alpine AS build
+WORKDIR /app
+
+# Copy root package files
+COPY package.json .
+COPY src/frontend/package*.json ./src/frontend/
+
+# Install dependencies
+RUN npm install
+RUN cd src/frontend && npm install
+
+# Copy all source files
+COPY . .
+
+# Build the frontend
+# Note: VITE_API_URL should be passed during build if needed static, 
+# but for better flexibility, we'll ensure the app can handle it or use a simple server.
+ARG VITE_API_URL=https://naatu-mithra-backend-193019616300.us-central1.run.app
+ENV VITE_API_URL=$VITE_API_URL
+
+RUN cd src/frontend && npm run build
+
+# Stage 2: Serve
+FROM node:18-alpine
+WORKDIR /app
+
+# Install simple server for static files
+RUN npm install -g serve
+
+# Copy build artifacts from previous stage
+COPY --from=build /app/src/frontend/dist ./dist
+
+# Start the server on the port provided by Cloud Run
+CMD ["sh", "-c", "serve -s dist -l $PORT"]

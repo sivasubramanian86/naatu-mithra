@@ -2,25 +2,12 @@
 
 This guide provides step-by-step instructions for deploying NaatuMithra to Vercel (Frontend), GCP (Backend), and AWS (AI Orchestration).
 
+## 🌍 Live Deployments
+- **Frontend (Vercel)**: [https://naatu-mithra-frontend-bw0dnx2h0.vercel.app](https://naatu-mithra-frontend-bw0dnx2h0.vercel.app)
+- **Frontend (GCP)**: [https://naatu-mithra-ui-193019616300.us-central1.run.app](https://naatu-mithra-ui-193019616300.us-central1.run.app)
+- **Backend (GCP)**: [https://naatu-mithra-backend-193019616300.us-central1.run.app](https://naatu-mithra-backend-193019616300.us-central1.run.app)
+
 ## 1. Frontend: Vercel
-
-Vercel is the recommended platform for the React frontend.
-
-### Steps
-1. **GitHub Integration**: If you haven't already, push your code to GitHub.
-2. **Import Project**: In the [Vercel Dashboard](https://vercel.com/new), import your `naatu-mithra` repository.
-3. **Configure Project**:
-   - **Framework Preset**: Vite
-   - **Root Directory**: `src/frontend`
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `dist`
-4. **Environment Variables**:
-   - `VITE_API_URL`: The URL of your deployed backend (e.g., `https://your-backend-url.a.run.app`).
-5. **Deploy**: Click **Deploy**.
-
----
-
-## 2. Backend: GCP (Cloud Run)
 
 The Node.js backend is optimized for Google Cloud Run using the root `Dockerfile`.
 
