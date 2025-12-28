@@ -4,6 +4,8 @@
 # Internal State & Artifacts
 .gemini/
 PROJECT_DEEPDIVE.md
+DOCUMENTATION_REVIEW.md
+IMAGE_GENERATION_PROMPTS.md
 .env.local
 *.log
 
