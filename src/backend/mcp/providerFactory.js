@@ -11,6 +11,7 @@ const getProvider = (choice) => {
             return awsSolution;
         case 'gcp':
         case 'gemini':
+        case 'google':
             return gcpSolution;
         case 'opensource':
         case 'os':
